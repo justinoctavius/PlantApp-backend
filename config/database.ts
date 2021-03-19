@@ -1,17 +1,23 @@
 import { Sequelize } from 'sequelize-typescript';
 import config from '.';
 
-//database
-const dbConfig: any = {
-  host: config.env.DB.POSTGRES_HOST,
-  dialect: 'postgres',
-  username: config.env.DB.POSTGRES_USER,
-  password: config.env.DB.POSTGRES_PASSWORD,
-  database: config.env.POSTGRES_DATABASE,
-  models: [__dirname + './../src/dal/models'],
-};
+let sequelize;
 
-export const sequelize = new Sequelize(dbConfig);
+const connect = async () => {
+  //database
+  const dbConfig: any = {
+    host: config.env.DB.POSTGRES_HOST,
+    dialect: 'postgres',
+    username: config.env.DB.POSTGRES_USER,
+    password: config.env.DB.POSTGRES_PASSWORD,
+    database: config.env.POSTGRES_DATABASE,
+    models: [__dirname + './../src/dal/models'],
+  };
+  sequelize = new Sequelize(dbConfig);
+
+  await sequelize.sync({ force: false }).catch((err) => console.log(err));
+  testConnection();
+};
 
 const testConnection = async () => {
   try {
@@ -22,5 +28,4 @@ const testConnection = async () => {
   }
 };
 
-testConnection();
-// sequelize.sync({ force: true }).catch((err) => console.log(err));
+export { sequelize, connect };

@@ -63,11 +63,10 @@ class CategoryRepository implements ICategoryRepository {
       name: category.name,
       description: category.description,
     });
-    console.log(categoryInstance);
     await image.$add('category', categoryInstance);
     await shop.$add('category', categoryInstance);
 
-    return toDomainCategory({ ...categoryInstance.dataValue, image });
+    return toDomainCategory({ ...categoryInstance.dataValues, image });
   }
   //===============================remove category=========================================
   async removeCategoryAsync(category_id: string): Promise<ICategory> {

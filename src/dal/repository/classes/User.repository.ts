@@ -22,7 +22,7 @@ class UserRepository implements IUserRepository {
     const user = await this.getUserByAttributeAsync({
       username,
       email,
-      include: { shop: 'shop', categories: 'categories' },
+      include: { shop: 'shop' },
     });
     if (!user) return null;
     if (!CryptUtil.compare(password, user.password)) return null;
@@ -68,11 +68,16 @@ class UserRepository implements IUserRepository {
 
     if (!user) return null;
 
-    let shop = null;
+    let shop: any = null;
     if (include) {
-      if (include.shop) shop = await user.$get(include.shop);
+      if (include.shop) {
+        shop = await user.$get(include.shop);
+      }
+
       if (shop && include.categories) {
-        shop.categories = await shop.$get(include.categories);
+        shop.categories = (await shop.$get(include.categories)).map(
+          (category) => category.dataValues
+        );
       }
     }
 
