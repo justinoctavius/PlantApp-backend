@@ -53,7 +53,7 @@ class TradeService implements ITradeService {
     );
 
     //verify the buyer money
-    if (buyerShop.getMoney() < product.price) {
+    if (buyerShop.getMoney() < product.price * quantity) {
       return {
         msg: `${buyerShop.name} doesn't have enough money`,
         payload: null,
@@ -71,7 +71,7 @@ class TradeService implements ITradeService {
     }
 
     //verify the product is comming from another store
-    if (product.category_id === buyerCategory.category_id) {
+    if (product.category_id === buyerCategory?.category_id) {
       return {
         msg: `${buyerShop.name} you can't sell products to your self`,
         payload: null,
@@ -112,6 +112,7 @@ class TradeService implements ITradeService {
       );
       if (buyerProductExits) {
         buyerProductExits.addProduct(trade._productBoughted.getQuantity());
+        buyerProductExits.price = trade._productBoughted.price;
         await this._productRepository.updateProductAsync(buyerProductExits);
       } else {
         await this._productRepository.insertProductAsync(
@@ -146,8 +147,8 @@ class TradeService implements ITradeService {
       return { msg: 'success', payload: receiptDto, status: 200 };
     } catch (error) {
       t.rollback();
-      return { msg: 'unable to buy product', payload: null, status: 500 };
       console.log(error);
+      return { msg: 'unable to buy product', payload: null, status: 500 };
     }
   }
 }

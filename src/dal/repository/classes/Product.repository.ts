@@ -55,11 +55,13 @@ class ProductRepository implements IProductRepository {
   }
   //===============================Remove product=========================================
   async removeProductAsync(product_id: string): Promise<IProduct> {
-    const product = await ProductModel.findByPk(product_id);
+    const product: any = await ProductModel.findByPk(product_id, {
+      include: 'image',
+    });
     if (!product) return null;
-    await product.destroy();
 
-    return toDomainProduct(product);
+    await product.destroy();
+    return toDomainProduct(product.dataValues);
   }
   //===============================Update product=========================================
   async updateProductAsync(product: IProduct): Promise<IProduct> {

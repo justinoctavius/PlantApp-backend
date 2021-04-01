@@ -27,6 +27,11 @@ class UserController implements IUserController {
     });
     res.json(response).status(response.status);
   }
+  //================================Get user by token=======================================
+  async getUserByTokenAsync(req, res) {
+    const { response } = req.body;
+    res.json(response).status(response.status);
+  }
 }
 
 export default UserController;

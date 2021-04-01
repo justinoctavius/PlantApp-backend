@@ -73,8 +73,11 @@ class ImageService implements IImageService {
 
       t.commit();
 
-      ImageUtil.confirmImage(image_url);
-      ImageUtil.removeImage(oldImage_url);
+      //if image_url doesn't exist means that we only want to update name and description
+      if (image_url) {
+        ImageUtil.confirmImage(image_url);
+        ImageUtil.removeImage(oldImage_url);
+      }
 
       const imageDto = toImageDto(imageUpdated);
       return { msg: 'success', payload: imageDto, status: 200 };
@@ -103,6 +106,7 @@ class ImageService implements IImageService {
     } catch (error) {
       t.rollback();
       console.log(error);
+      return { msg: 'unable to remove image', payload: null, status: 500 };
     }
   }
 }

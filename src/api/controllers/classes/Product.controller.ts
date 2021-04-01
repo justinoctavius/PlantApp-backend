@@ -31,7 +31,6 @@ class ProductController implements IProductController {
       image_id,
       id,
     } = req.body;
-    console.log(req.body);
     const response = await this._productService.insertProductAsync({
       image_id,
       category_id,

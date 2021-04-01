@@ -33,7 +33,7 @@ class Product implements IProduct {
   }
 
   addProduct(quantity: number): void {
-    this.quantity = this.quantity + quantity;
+    this.quantity = Number(this.quantity) + Number(quantity);
   }
 
   reduceProduct(quantity: number): void {

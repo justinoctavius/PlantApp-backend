@@ -64,24 +64,15 @@ class UserRepository implements IUserRepository {
   }): Promise<IUser> {
     const user: any = await UserModel.findOne({
       where: { [Op.or]: [{ username }, { email }] },
+      include: 'shop',
     });
 
     if (!user) return null;
 
-    let shop: any = null;
-    if (include) {
-      if (include.shop) {
-        shop = await user.$get(include.shop);
-      }
-
-      if (shop && include.categories) {
-        shop.categories = (await shop.$get(include.categories)).map(
-          (category) => category.dataValues
-        );
-      }
-    }
-
-    return toDomainUser({ ...user.dataValues, shop });
+    return toDomainUser({
+      ...user.dataValues,
+      shop: user?.dataValues?.shop?.dataValues,
+    });
   }
 }
 

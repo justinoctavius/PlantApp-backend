@@ -14,7 +14,9 @@ class ShopRepository implements IShopRepository {
   }
   //=============================== Get global shop =========================================
   async getGlobalShopAsync(): Promise<IShop> {
-    const globalShop = await ShopModel.findOne({ where: { global: true } });
+    const globalShop = await ShopModel.findOne({
+      where: { global: true },
+    });
     if (!globalShop) return null;
     return toDomainShop(globalShop);
   }
@@ -39,7 +41,7 @@ class ShopRepository implements IShopRepository {
   async updateMoneyAsync(shop_id: string, money: number): Promise<IShop> {
     const shop = await ShopModel.findByPk(shop_id);
     if (!shop) return null;
-    shop.money = money;
+    shop.money = Number(money.toFixed(2));
     await shop.save();
     return toDomainShop(shop);
   }

@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { CONTROLLER_TYPES } from '../../types';
 import container from '../inversify.config';
-import { JWTMiddleware } from '../middlewares';
+import { JWTMiddleware, UserMiddleware } from '../middlewares';
 
 const route = Router();
 
@@ -15,14 +15,23 @@ route.get('/category/:shop_id', JWTMiddleware.verifyToken, (req, res) =>
 route.get('/one-category/:category_id', JWTMiddleware.verifyToken, (req, res) =>
   categoryController.getCategoryAsync(req, res)
 );
-route.post('/category/', JWTMiddleware.verifyToken, (req, res) =>
-  categoryController.insertCategoryAsync(req, res)
+route.post(
+  '/category/',
+  UserMiddleware.verifyAdmin,
+  JWTMiddleware.verifyToken,
+  (req, res) => categoryController.insertCategoryAsync(req, res)
 );
-route.put('/category/:category_id', JWTMiddleware.verifyToken, (req, res) =>
-  categoryController.updateCategoryAsync(req, res)
+route.put(
+  '/category/:category_id',
+  UserMiddleware.verifyAdmin,
+  JWTMiddleware.verifyToken,
+  (req, res) => categoryController.updateCategoryAsync(req, res)
 );
-route.delete('/category/:category_id/', JWTMiddleware.verifyToken, (req, res) =>
-  categoryController.removeCategoryAsync(req, res)
+route.delete(
+  '/category/:category_id/',
+  UserMiddleware.verifyAdmin,
+  JWTMiddleware.verifyToken,
+  (req, res) => categoryController.removeCategoryAsync(req, res)
 );
 
 export default route;

@@ -35,13 +35,15 @@ class ImageRepository implements IImageRepository {
   //===============================update image=========================================
   async updateImageAsync(image: IImageEntity): Promise<IImageEntity> {
     const imageNameExists = await this.getImageByNameAsync(image.name);
-    if (imageNameExists) return null;
+    if (imageNameExists && imageNameExists.image_id !== image.image_id) {
+      return null;
+    }
 
     const imageToUpdate = await ImageModel.findByPk(image.image_id);
     if (!imageToUpdate) return null;
 
     imageToUpdate.name = image.name;
-    imageToUpdate.image_url = image.image_url;
+    if (image.image_url) imageToUpdate.image_url = image.image_url;
     imageToUpdate.description = image.description;
 
     await imageToUpdate.save();

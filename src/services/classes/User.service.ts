@@ -47,7 +47,11 @@ class UserService implements IUserService {
     const shopDescription =
       'This is your shop, try to buy something in the global shop';
 
-    const newShop: IShop = new Shop([], shopName, shopDescription);
+    const newShop: IShop = new Shop(
+      [],
+      shopName.toUpperCase(),
+      shopDescription
+    );
     const newUser: IUser = new User(username, email, password, newShop);
 
     const userSignedUp: IUser = await this._userRepository.signUpAsync(newUser);

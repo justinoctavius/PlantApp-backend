@@ -53,12 +53,9 @@ class ProductService implements IProductService {
       image,
       quantity
     );
-    console.log(newProduct);
     const productInserted = await this._productRepository.insertProductAsync(
       newProduct
     );
-
-    console.log(productInserted);
 
     if (!productInserted) {
       return { msg: 'unable to insert product', payload: null, status: 500 };

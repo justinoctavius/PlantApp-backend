@@ -19,6 +19,19 @@ class UserMiddleware {
         .status(500);
     }
   }
+  static async getUserByToken(req, res, next) {
+    const token = req.headers['authorization'].split(' ')[1];
+    const tokenDecode: any = JWTUtil.decode(token);
+    const response: any = await userService.getUserAsync(tokenDecode.data);
+    if (response) {
+      req.body.response = response;
+      next();
+    } else {
+      res
+        .json({ msg: `user not found`, payload: null, status: 500 })
+        .status(500);
+    }
+  }
 }
 
 export default UserMiddleware;

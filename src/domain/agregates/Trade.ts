@@ -28,22 +28,28 @@ class Trade {
   }
 
   buyProduct(): IReceipt {
-    const productBoughtedPrice =
-      this._productSold.price - this._productSold.price * 0.2;
-
-    const price = this._productSold.price * this._quantity;
+    const _getProductPrice = () => {
+      const productBonus =
+        this._productSold.price * 0.05 - this._productSold.getQuantity() * 0.05;
+      if (productBonus > 0) {
+        return Number((this._productSold.price + productBonus).toFixed(2));
+      }
+      return Number(this._productSold.price.toFixed(2));
+    };
+    const price = Number((this._productSold.price * this._quantity).toFixed(2));
 
     this._productBoughted = new Product(
       '',
       this._productSold.name,
       this._productSold.description,
       this._buyerCategory.category_id,
-      productBoughtedPrice,
+      _getProductPrice(),
       this._productSold.image,
       this._quantity
     );
     this._shopSeller.addMoney(price);
     this._productSold.reduceProduct(this._quantity);
+    this._productSold.price = _getProductPrice();
     this._shopBuyer.reduceMoney(price);
 
     return new Receipt(

@@ -21,7 +21,6 @@ class ImageController implements IImageController {
   async insertImageAsync(req, res) {
     const { name, description } = req.body;
     const image_url = req.file.filename;
-    console.log(req.file, image_url);
     const response: any = await this._imageService.insertImageAsync({
       name,
       description,
@@ -33,7 +32,7 @@ class ImageController implements IImageController {
   async updateImageAsync(req, res) {
     const { image_id } = req.params;
     const { name, description, oldImage_url } = req.body;
-    const image_url = req.file.filename;
+    const image_url = req.file?.filename;
     const response: any = await this._imageService.updateImageAsync({
       image_id,
       name,
