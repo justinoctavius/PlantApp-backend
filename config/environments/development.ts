@@ -2,7 +2,7 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 export default {
-  PORT: process.env.PORT || 8080,
+  PORT: process.env.PORT || 80,
   PLANTS_API: process.env.PLANTS_API,
   JWT_SECRECT: process.env.JWT_SECRECT,
   ADMIN: {
