@@ -15,10 +15,13 @@ class UserService implements IUserService {
   private _userRepository: IUserRepository;
   //===============================Get user by name =========================================
   async getUserAsync(user_id: string): Promise<Object> {
-    console.log(user_id), 'hola';
-    const user: IUser = await this._userRepository.getUserByIdAsync(user_id);
-    const userDto = toUserDTO(user);
-    return { msg: 'success', payload: userDto, status: 200 };
+    try {
+      const user: IUser = await this._userRepository.getUserByIdAsync(user_id);
+      const userDto = toUserDTO(user);
+      return { msg: 'success', payload: userDto, status: 200 };
+    } catch (error) {
+      return { msg: 'unable to get user', payload: null, status: 500 };
+    }
   }
   //===============================Sign In =========================================
   async signInAsync({ username, email, password }): Promise<Object> {
