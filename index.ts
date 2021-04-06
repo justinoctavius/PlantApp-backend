@@ -5,7 +5,8 @@ import { APP_TYPES } from './src/types';
 
 const application: StartUp = container.get(APP_TYPES.App);
 
-connect();
-application.start().then(() => {
-  application.createAdminAsync();
+connect().then(() => {
+  application.start().then(() => {
+    application.createAdminAsync();
+  });
 });

@@ -1,5 +1,6 @@
 import { inject, injectable } from 'inversify';
 import config from '../../config';
+import { connect } from '../../config/database';
 import IUserService from '../services/interfaces/IUser.service';
 import { APP_TYPES, SERVICE_TYPES } from '../types';
 

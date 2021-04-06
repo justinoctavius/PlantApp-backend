@@ -8,17 +8,23 @@ services:
     ports: 
       - "5432:5432"
   plant-app-backend:
-    build: .
+    image: octavius2929/plant_app_backend 
     restart: "always"
     ports: 
-      - "8080:8080"
+      - "80:80"
     depends_on: 
       - "db"
     environment: 
+      PORT: 80
+      JWT_SECRECT: 'lapampara'
       ADMIN_USERNAME: admin
       ADMIN_PASSWORD: root
       ADMIN_EMAIL: admin@gmail.com
       JWT_SECRECT: mysecret
       POSTGRES_HOST: "db"
+      POSTGRES_PORT: '5432'
+      POSTGRES_PASSWORD: '123'
+      POSTGRES_USERNAME: 'postgres'
+      POSTGRES_DATABASE: 'plant_pro'
       POSTGRES_URI: 'db:5432'
-      NODE_ENV: 'dev'
+      NODE_ENV: 'pro'
