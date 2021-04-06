@@ -9,10 +9,10 @@ const categoryController: any = container.get(
   CONTROLLER_TYPES.CategoryControllerType
 );
 
-route.get('/category/:shop_id', JWTMiddleware.verifyToken, (req, res) =>
+route.get('/categories/:shop_id', JWTMiddleware.verifyToken, (req, res) =>
   categoryController.getAllCategoryAsync(req, res)
 );
-route.get('/one-category/:category_id', JWTMiddleware.verifyToken, (req, res) =>
+route.get('/category/:category_id', JWTMiddleware.verifyToken, (req, res) =>
   categoryController.getCategoryAsync(req, res)
 );
 route.post(

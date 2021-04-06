@@ -1,4 +1,5 @@
 import {
+  BelongsTo,
   BelongsToMany,
   Column,
   DataType,
@@ -9,7 +10,6 @@ import {
 
 import IReceiptModel from './interfaces/IReceipt.model';
 import IShopModel from './interfaces/IShop.model';
-import ReceiptShop from './ReceiptShop.model';
 import ShopModel from './Shop.model';
 
 @Table({
@@ -54,8 +54,19 @@ class ReceiptModel extends Model implements IReceiptModel {
   })
   date: number;
 
-  @BelongsToMany(() => ShopModel, () => ReceiptShop)
-  shops: IShopModel[];
+  @ForeignKey(() => ShopModel)
+  @Column({ type: DataType.UUID, allowNull: false })
+  buyer_id: string;
+
+  @ForeignKey(() => ShopModel)
+  @Column({ type: DataType.UUID, allowNull: false })
+  seller_id: string;
+
+  @BelongsTo(() => ShopModel, 'buyer_id')
+  buyer: IShopModel;
+
+  @BelongsTo(() => ShopModel, 'seller_id')
+  seller: IShopModel;
 }
 
 export default ReceiptModel;

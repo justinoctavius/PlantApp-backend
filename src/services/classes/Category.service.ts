@@ -61,7 +61,7 @@ class CategoryService implements ICategoryService {
       return {
         msg: 'unable to delete category',
         payload: categoryDeleted,
-        status: 200,
+        status: 500,
       };
 
     const categoryDeletedDto = toCategoryDto(categoryDeleted);

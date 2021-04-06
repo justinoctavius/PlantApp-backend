@@ -11,8 +11,10 @@ class ReceiptController implements IReceiptController {
   //===============================Get all receipt===============================================
   async getAllReceiptAsync(req, res): Promise<void> {
     const { shop_id } = req.params;
+    const { page } = req.query;
     const response: any = await this._receiptService.getAllReceiptAsync(
-      shop_id
+      shop_id,
+      page
     );
     res.json(response).status(response.status);
   }

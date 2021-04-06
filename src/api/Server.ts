@@ -5,15 +5,15 @@ import config from '../../config';
 @injectable()
 class Server {
   private env: any;
-  private app: express.Express;
+  static app: express.Express;
   constructor() {
     this.env = config.env;
-    this.app = express();
-    config.serverConfig(this.app);
+    Server.app = express();
+    config.serverConfig(Server.app);
   }
 
   async start() {
-    await this.app.listen(this.env.PORT, () => {
+    Server.app.listen(this.env.PORT, () => {
       console.log('server running on port: ' + this.env.PORT);
     });
   }

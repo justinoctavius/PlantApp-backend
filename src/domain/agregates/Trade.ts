@@ -52,13 +52,7 @@ class Trade {
     this._productSold.price = _getProductPrice();
     this._shopBuyer.reduceMoney(price);
 
-    return new Receipt(
-      this._shopBuyer.shop_id,
-      price,
-      this._productSold.name,
-      this._quantity,
-      this._shopSeller.shop_id
-    );
+    return new Receipt(price, this._productSold.name, this._quantity);
   }
 }
 

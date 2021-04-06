@@ -9,10 +9,10 @@ const productController: any = container.get(
   CONTROLLER_TYPES.ProductControllerType
 );
 
-route.get('/product/:category_id', JWTMiddleware.verifyToken, (req, res) =>
+route.get('/products/:category_id', JWTMiddleware.verifyToken, (req, res) =>
   productController.getAllProductAsync(req, res)
 );
-route.get('/one-product/:product_id', JWTMiddleware.verifyToken, (req, res) =>
+route.get('/product/:product_id', JWTMiddleware.verifyToken, (req, res) =>
   productController.getProductAsync(req, res)
 );
 route.post(

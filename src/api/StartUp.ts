@@ -10,10 +10,9 @@ class StartUp {
 
   async start() {
     await this._server.start();
-    await this.createAdminAsync();
   }
 
-  private async createAdminAsync() {
+  async createAdminAsync() {
     const admin = {
       username: config.env.ADMIN.ADMIN_USERNAME,
       email: config.env.ADMIN.ADMIN_EMAIL,

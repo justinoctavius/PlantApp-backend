@@ -16,7 +16,6 @@ import IReceiptModel from './interfaces/IReceipt.model';
 
 import CategoryModel from './Category.model';
 import ReceiptModel from './Receipt.model';
-import ReceiptShop from './ReceiptShop.model';
 import UserModel from './User.model';
 
 @Table({
@@ -68,7 +67,7 @@ class ShopModel extends Model implements IShopModel {
   @BelongsTo(() => UserModel)
   user: IUserModel;
 
-  @BelongsToMany(() => ReceiptModel, () => ReceiptShop)
+  @HasMany(() => ReceiptModel)
   receipts: IReceiptModel[];
 
   @HasMany(() => CategoryModel)

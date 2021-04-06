@@ -10,7 +10,7 @@ const ImageController: IImageController = container.get(
   CONTROLLER_TYPES.ImageControllerType
 );
 
-route.get('/image/', JWTMiddleware.verifyToken, (req, res) =>
+route.get('/images/', JWTMiddleware.verifyToken, (req, res) =>
   ImageController.getAllImagesAsync(req, res)
 );
 route.get('/image/:image_id', JWTMiddleware.verifyToken, (req, res) =>

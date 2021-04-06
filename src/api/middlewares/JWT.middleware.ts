@@ -10,7 +10,7 @@ class JWTMiddleware {
       if (!isValid) {
         res
           .json({
-            msg: 'token is not valid!',
+            msg: 'token invalid!',
             payload: null,
             status: 500,
           })

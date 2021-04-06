@@ -9,10 +9,10 @@ const receiptController: any = container.get(
   CONTROLLER_TYPES.ReceiptControllerType
 );
 
-route.get('/receipt/:shop_id', JWTMiddleware.verifyToken, (req, res) =>
+route.get('/receipts/:shop_id', JWTMiddleware.verifyToken, (req, res) =>
   receiptController.getAllReceiptAsync(req, res)
 );
-route.get('/one-receipt/:receipt_id', JWTMiddleware.verifyToken, (req, res) =>
+route.get('/receipt/:receipt_id', JWTMiddleware.verifyToken, (req, res) =>
   receiptController.getReceiptAsync(req, res)
 );
 

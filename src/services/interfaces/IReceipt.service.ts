@@ -1,5 +1,5 @@
 interface IReceiptService {
-  getAllReceiptAsync(user_id: string): Promise<Object>;
+  getAllReceiptAsync(shop_id: string, page: number): Promise<Object>;
   getReceiptAsync(receipt_id: string): Promise<Object>;
 }
 

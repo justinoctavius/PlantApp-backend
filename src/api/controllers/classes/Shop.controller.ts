@@ -9,8 +9,8 @@ class ShopController implements IShopController {
   @inject(SERVICE_TYPES.ShopServiceType) private _shopService: IShopService;
   //===============================Get all shop===============================================
   async getAllShopAsync(req, res) {
-    const { offset } = req.params;
-    const response: any = await this._shopService.getAllShopAsync(offset);
+    const { page } = req.query;
+    const response: any = await this._shopService.getAllShopAsync(page);
     res.json(response).status(response.status);
   }
   //===============================Get global shop===============================================

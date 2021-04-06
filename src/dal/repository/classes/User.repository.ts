@@ -22,7 +22,6 @@ class UserRepository implements IUserRepository {
     const user = await this.getUserByAttributeAsync({
       username,
       email,
-      include: { shop: 'shop' },
     });
     if (!user) return null;
     if (!CryptUtil.compare(password, user.password)) return null;
@@ -57,11 +56,7 @@ class UserRepository implements IUserRepository {
     return toDomainUser({ ...newUser, shop: newShop });
   }
   //===============================Get user by attribute=========================================
-  async getUserByAttributeAsync({
-    username,
-    email,
-    include = null,
-  }): Promise<IUser> {
+  async getUserByAttributeAsync({ username, email }): Promise<IUser> {
     const user: any = await UserModel.findOne({
       where: { [Op.or]: [{ username }, { email }] },
       include: 'shop',
